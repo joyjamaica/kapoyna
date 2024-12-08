@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Register Here!</title>
+	<link rel="stylesheet" type="text/css" href="registration.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    
+    <header class="header">
+        <div class="logo-container">
+         <a href="index.html">
+            <img src="logo.png" alt="Logo">
+        </a>
+        <span class="brand-name">JS APPAREL</span>
+        </div>
+    </header>
+
+
+<div class="headings">
+    <h3>REGISTER HERE TO START SHOPPING WITH US!</h3>
+</div>
+
+ <div id="error-container" class="error-container" style="display: none;">
+        <!-- Error messages will be inserted here -->
+    </div>
+
+
+<form id="registerForm">
+            <table>
+                <tr>
+                    <td><label for="name"><span class="required">*</span>Name </label></td>
+                    <td><input type="text" name="name" id="name" placeholder="Enter Full Name" ><br></td>
+                </tr>
+
+                <tr>
+                    <td><label for="phone"><span class="required">*</span>Phone</label></td>
+                    <td><input type="text" name="phone" id="phone" placeholder="Enter Phone number" ></td>
+                </tr>
+                 <tr>
+                    <td><label for="username"><span class="required">*</span>Username</label></td>
+                    <td><input type="email" name="username" id="username" placeholder="Enter username" ></td>
+                </tr>
+                 <tr>
+                    <td><label for="password"><span class="required">*</span>Password</label></td>
+                    <td><input type="password" name="password" id="password" placeholder="Enter Password" ></td>
+                </tr>
+            </table>
+   
+        <button>Register Now</button>
+
+        <div class="log-in">
+                <p>Already have an account? <a href="log-in_form.html">Log-in</a></p>  
+        </div>
+
+        <script src="registration.js"></script>
+</form>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault(); 
+
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        const errorContainer = document.getElementById('error-container');
+        errorContainer.style.display = 'none';
+        errorContainer.innerHTML = '';  
+
+        let errors = [];
+
+        // Name validation
+        if (!name) {
+            errors.push('Name is required.');
+        }
+
+        
+        if (!phone || !/^\d+$/.test(phone)) {
+            errors.push('Phone number is required and must be numeric.');
+        }
+
+        
+        if (!username || !/\S+@\S+\.\S+/.test(username)) {
+            errors.push('Please enter a valid email address for the username.');
+        }
+
+        // Password validation
+        if (!password) {
+            errors.push('Password is required.');
+        }
+        if (password && password.length < 6) {
+            errors.push('Password must be at least 6 characters long.');
+        }
+       
+
+        
+        if (errors.length > 0) {
+            errorContainer.style.display = 'block';
+            errors.forEach(error => {
+                const p = document.createElement('p');
+                p.textContent = error;
+                errorContainer.appendChild(p);
+            });
+            return;
+        }
+
+
+        localStorage.setItem('username', username);
+        localStorage.setItem('password', password);
+
+
+        alert('Registration successful!');
+
+
+        window.location.href = "log-in_form.html";  
+    });
+</script>
+
+
+
+</body>
+</html>
